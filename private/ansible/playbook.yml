@@ -1,0 +1,8 @@
+---
+- name: setup server
+  hosts: vagrant
+  user: vagrant
+  sudo: true
+  roles:
+    - core
+    - nginx

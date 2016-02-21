@@ -1,0 +1,10 @@
+---
+- name: update apt
+  apt: update_cache=yes
+
+- name: Install packages
+  apt: name={{ item }} state=present
+  with_items:
+    #- build-essential
+    - bash-completion
+    - vim
