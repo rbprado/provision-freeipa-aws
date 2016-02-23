@@ -1,6 +1,6 @@
 ---
-- name: setup server
-  hosts: vagrant
+- name: setup nginx server 
+  hosts: all
   user: vagrant
   sudo: true
   roles:

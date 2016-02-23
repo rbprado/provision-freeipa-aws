@@ -5,6 +5,6 @@
 - name: Install packages
   apt: name={{ item }} state=present
   with_items:
-    #- build-essential
+    - build-essential
     - bash-completion
     - vim
