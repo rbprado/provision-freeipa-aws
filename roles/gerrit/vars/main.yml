@@ -1,0 +1,15 @@
+---
+domain: test.br
+realm: test.br
+
+gerrit_port: 29418
+
+gerrit_hostname: gerrit.test.br
+freeipa_hostname: freeipa.test.br
+freeipa_user: admin
+freeipa_pass: 12345678
+freeipa_ip: <INSERT THE IP>
+
+ldap_dc_full: dc=test,dc=br
+
+user: "{{lookup ('env', 'USER')}}"

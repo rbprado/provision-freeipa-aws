@@ -1,0 +1,13 @@
+---
+- name: Include proxy and other basic configurations
+  include: 1_gerrit_preparation.yml
+
+- name: Include basic packages installations
+  include: 2_gerrit_packages_installation.yml
+  
+- name: Include gerrit configurations 
+  include: 3_gerrit_configuration.yml
+
+#- name: Include the freeipa enrollment and other configurations
+#  include: 4_gerrit_freeipa_configuration.yml
+

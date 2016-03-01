@@ -1,0 +1,15 @@
+---
+- name: Set gerrit hostname
+  hostname: name={{ gerrit_hostname }}
+
+#- name: Set {{ gerrit_hostname }} in /etc/sysconfig/network
+#  lineinfile: dest="/etc/sysconfig/network" line="HOSTNAME={{ gerrit_hostname }}" regexp="^\s*HOSTNAME\s*="
+#
+#- name: Set PEERDNS="no" at /etc/sysconfig/network-scripts/ifcfg-eth0
+#  replace: dest=/etc/sysconfig/network-scripts/ifcfg-eth0 regexp='(.*PEERDNS=")yes(")' replace='\1no\2'
+#
+#- name: Resolve freeipa name at /etc/hosts
+#  lineinfile: dest=/etc/hosts line="{{ freeipa_ip }} {{ freeipa_hostname }}"
+
+- name: Resolve gerrit name at /etc/hosts
+  lineinfile: dest=/etc/hosts line="{{ ansible_eth0.ipv4.address }} {{ gerrit_hostname }}"

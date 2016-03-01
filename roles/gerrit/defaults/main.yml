@@ -1,0 +1,28 @@
+gerrit_account_user: gerrit
+gerrit_account_comment: Gerrit User
+gerrit_account_home: '{{ gerrit_install_dir }}'
+gerrit_account_group: gerrit
+gerrit_account_pass: $6$yIz98LXOVx4h$B8lDm/vmh6/sm2GC/7BTyuKzT5q9xEpb/816O4PV7sPFEWtAHtBR6PgfnkEdKy65iLPMypZkdGVxJ3khhuhy./
+
+gerrit_db: reviewdb
+gerrit_db_host: localhost
+gerrit_db_type: mysql
+gerrit_db_user: gerrit
+gerrit_db_pass: dmos1.0
+
+gerrit_dl_url: https://www.gerritcodereview.com/download
+gerrit_dl_filename: '{{ gerrit_name_ver }}.war'
+gerrit_dl_sha256sum: 8f2e2e61b939664a20a025ef4f99095c08be14342ea5457bf5613bccedabcd27
+
+gerrit_version: 2.12
+gerrit_warfile_dir: /opt
+gerrit_install_dir: '{{ gerrit_warfile_dir }}/gerrit-{{ gerrit_version }}'
+gerrit_sshd_listen_port: 29418
+gerrit_service_name: gerrit
+gerrit_name_ver: 'gerrit-{{ gerrit_version }}'
+gerrit_http_listen_port: 8080
+gerrit_mysql_connector_file: mysql-connector-java-5.1.21.jar
+gerrit_mysql_connector_url: http://repo2.maven.org/maven2/mysql/mysql-connector-java/5.1.21
+gerrit_init: "java -jar {{ gerrit_warfile_dir }}/{{ gerrit_name_ver }}.war init --batch --no-auto-start -d {{ gerrit_install_dir }} --install-plugin reviewnotes --install-plugin replication --install-plugin download-commands --install-plugin singleusergroup --install-plugin commit-message-length-validator"
+
+gitweb_cgi_path: /usr/share/gitweb/gitweb.cgi
