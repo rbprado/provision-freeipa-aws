@@ -1,5 +1,5 @@
 ---
-- name: setup nginx server 
+- name: setup gerrit
   hosts: all
   user: vagrant
   sudo: true

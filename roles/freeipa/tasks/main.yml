@@ -1,0 +1,69 @@
+---
+- name: Install epel
+  yum: update_cache=yes name=epel-release
+
+- name: Install base packages
+  yum: name={{ item }}
+  with_items:
+    - java
+    - git
+    - ipa-server
+    #- ipa-server-dns
+    - bind
+    - bind-dyndb-ldap
+    - net-tools
+    - sshpass
+    - vim
+
+- name: export aws public dns
+  shell: curl -s http://169.254.169.254/latest/meta-data/public-hostname
+  register: aws_public_dns
+
+- name: IPA Server Is Installing, this will certainly take time
+  command: ipa-server-install -a {{ freeipa_pass }} --hostname={{ aws_public_dns.stdout }} -r {{ realm }} -p {{ freeipa_pass }} -n {{ domain }} --setup-dns --forwarder={{ dnsforwarder }} --ip-address="{{ ansible_default_ipv4.address }}" -U
+
+#- name: IPA DNS Is Installing
+#  command: ipa-dns-install --forwarder={{ dnsforwarder }} --forwarder={{ dnsforwarder2 }} -U
+
+- name: Kerberos init
+  shell: echo {{ freeipa_pass }} | kinit {{ freeipa_user }}
+
+- name: Enable service sssd
+  service: name=sssd state=restarted enabled=yes
+
+#- name: IPA configurations
+#  command: ipa {{ item.cmd }}
+#  with_items:
+#    - { cmd: config-mod --defaultshell=/bin/bash }
+#    - { cmd: hbacrule-add --hostcat=all }
+#    - { cmd: hbacrule-add-user --groups=admins }
+#    - { cmd: hbacrule-add-service --hbacsvcs=sudo }
+#    - { cmd: hbacrule-add-service --hbacsvcs=sshd }
+#    - { cmd: sudorule-add sudo-default-rule --runasusercat='all' --hostcat='all' --runasgroupcat='all' --cmdcat='all' }
+#    - { cmd: sudorule-add-option sudo-default-rule --sudooption=\!authenticate }
+#    - { cmd: sudorule-add-user  sudo-default-rule --groups=admins }
+#    - { cmd: "permission-mod 'System: Read Groups' --includedattrs=memberof --includedattrs=member" }
+
+#- name: Configure Firewall
+#  command: firewall-cmd --permanent --add-service={{ item.cmd }}
+#  with_items:
+#    - { cmd: ntp }
+#    - { cmd: http }
+#    - { cmd: https }
+#    - { cmd: ldap }
+#    - { cmd: ldaps }
+#    - { cmd: kerberos }
+#    - { cmd: kpasswd }
+#    - { cmd: dns }
+
+#- name: Firewall Reload
+#  command: firewall-cmd --reload
+
+#- name: Iptables flush
+#  command: iptables -F
+
+#- name: Iptables removed from boot
+#  service: name=iptables enabled=no
+
+- name: Configure authconfig
+  command: authconfig --enablemkhomedir --update

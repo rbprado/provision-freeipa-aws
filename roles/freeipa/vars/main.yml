@@ -1,0 +1,5 @@
+
+freeipa_pass = '12345678'
+realm = 'AMAZONAWS.COM'
+domain = 'amazonaws.com'
+dnsforwarder = '169.254.169.254'

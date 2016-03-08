@@ -1,3 +1,6 @@
+
+# {{ ansible_managed }}
+
 # Path of the Gerrit site to run.  $GERRIT_SITE/etc/gerrit.config
 # will be used to configure the process.
 GERRIT_SITE={{ gerrit_install_dir }}
