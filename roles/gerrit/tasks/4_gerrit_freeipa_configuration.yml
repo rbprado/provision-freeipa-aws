@@ -1,4 +1,0 @@
----
-- name: Enroll IPA client to IPA server
-  command: ipa-client-install -N -p {{ freeipa_user }} -w {{ freeipa_pass }} --enable-dns-updates --mkhomedir --hostname {{ gerrit_hostname }} --force-join -U --server={{ freeipa_hostname }} --domain={{ domain }} --realm={{ realm }}
-  notify: start gerrit

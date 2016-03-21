@@ -1,7 +1,7 @@
 ---
-- name: setup nginx server 
-  hosts: all
+- name: setup freeipa 
+  hosts: freeipa
   user: vagrant
   sudo: true
   roles:
-    - gerrit
+    - freeipa

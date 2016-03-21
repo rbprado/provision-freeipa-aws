@@ -1,7 +1,0 @@
----
-- name: include basic packages installations
-  include: packages_installation.yml
-
-- name: include gerrit configurations 
-  include: gerrit_configuration.yml
-

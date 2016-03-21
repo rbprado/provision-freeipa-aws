@@ -1,7 +1,0 @@
----
-- name: setup gerrit
-  hosts: all
-  user: vagrant
-  sudo: true
-  roles:
-    - gerrit
