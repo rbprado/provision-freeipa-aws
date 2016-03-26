@@ -1,0 +1,24 @@
+---
+- name: export aws public dns
+  shell: curl -s http://169.254.169.254/latest/meta-data/public-hostname
+  register: aws_public_dns
+
+# TODO These configurations could be nice to set a nice standard to the VPC hosts configured with ipa-client to this freeipa server.
+#- name: Kerberos init
+#  shell: echo {{ freeipa_pass }} | kinit admin
+#
+#- name: IPA configurations
+#  command: ipa {{ item.cmd }}
+#  with_items:
+#    - { cmd: config-mod --defaultshell=/bin/bash }
+#    - { cmd: hbacrule-add --hostcat=all }            # TODO Need to resolve the new ask for role name.
+#    - { cmd: hbacrule-add-user --groups=admins }     # TODO Need to resolve the new ask for role name.
+#    - { cmd: hbacrule-add-service --hbacsvcs=sudo }  # TODO Need to resolve the new ask for role name.
+#    - { cmd: hbacrule-add-service --hbacsvcs=sshd }  # TODO Need to resolve the new ask for role name.
+#    - { cmd: sudorule-add sudo-default-rule --runasusercat='all' --hostcat='all' --runasgroupcat='all' --cmdcat='all' }
+#    - { cmd: sudorule-add-option sudo-default-rule --sudooption=\!authenticate }
+#    - { cmd: sudorule-add-user  sudo-default-rule --groups=admins }
+#    - { cmd: "permission-mod 'System: Read Groups' --includedattrs=memberof --includedattrs=member" }
+#    
+- debug:
+    msg: "Please try access the freeipa through: http://{{ aws_public_dns.stdout }}/"

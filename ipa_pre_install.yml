@@ -4,4 +4,4 @@
   user: vagrant
   sudo: true
   roles:
-    - freeipa
+    - freeipa_pre

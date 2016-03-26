@@ -1,0 +1,7 @@
+---
+- name: setup freeipa 
+  hosts: freeipa
+  user: vagrant
+  sudo: true
+  roles:
+    - freeipa_post

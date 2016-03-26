@@ -1,0 +1,45 @@
+---
+- name: export aws public dns
+  shell: curl -s http://169.254.169.254/latest/meta-data/public-hostname
+  register: aws_public_dns
+
+- name: Install EPEL repo.
+  yum:
+    name: "{{ epel_repo_url }}"
+    state: present
+  register: result
+  until: '"failed" not in result'
+  retries: 5
+  delay: 10
+
+- name: Import EPEL GPG key.
+  rpm_key:
+    key: "{{ epel_repo_gpg_key_url }}"
+    state: present
+
+- name: Install epel
+  yum:
+    update_cache: yes
+    name: epel-release
+
+- name: Disable repository disable rhui-REGION-client-config-server-7
+  command: yum-config-manager --disable rhui-REGION-client-config-server-7
+    
+- name: Install base packages
+  yum: name={{ item }}
+  with_items:
+    - java
+    - bind
+    - bind-dyndb-ldap
+    - sshpass
+    - vim
+    - ipa-server
+    - ipa-server-dns
+
+- lineinfile: dest=/etc/hosts line='{{ ansible_default_ipv4.address }} {{ aws_public_dns.stdout }}'
+
+- name: copy script for freeipa installation
+  template:
+    src: freeipa_install.sh
+    dest: /root
+    mode: 0700
