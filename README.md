@@ -72,7 +72,9 @@ HOSTS = {
 }
 ```
 NOTE 1: You need to create an elastic IP for your VM, without it after each reboot you will get a new IP.
+
 NOTE 2: Do not forget to open the needed ports at your security group.
+
 NOTE 3: While using VPC, the security group must be set through ID and not by it's name.
 
 
@@ -86,6 +88,7 @@ freeipa_domain: compute-1.amazonaws.com
 ldap_dc_full: dc=compute-1,dc=amazonaws,dc=com
 ```
 NOTE 1: Here we are using the public dns dynamic set by amazon as hostname, ofcourse it's just for testing purposes, at production you need a registered domain, or you can configure the freeipa to be a DNS resolver.
+
 NOTE 2: In case of configure freeipa to be a DNS resolver, edit the file freeipa_pre/templates/freeipa_install.sh, and point your machines to his public ip as DNS resolver. Then every machine which you set at your VPC can be registered to the freeipa by using the freeipa-client package, so the hostname set at the configuration of all machines will be resolved and you do not well need to register any domain.
 
 
